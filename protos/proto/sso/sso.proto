@@ -30,7 +30,7 @@ message LoginResponse {
 }
 
 message IsAdminRequest {
-    int64 user_id = 1;
+    string email = 1;
 }
 
 message IsAdminResponse {
