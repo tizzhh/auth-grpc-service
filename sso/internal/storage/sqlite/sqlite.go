@@ -52,7 +52,7 @@ func (s *Storage) SaveUser(ctx context.Context, email string, passHash []byte) (
 	res, err := stmt.ExecContext(ctx, email, passHash)
 	if err != nil {
 		var sqliteErr sqlite3.Error
-		if errors.Is(err, &sqliteErr) && sqliteErr.ExtendedCode == sqlite3.ErrConstraintUnique {
+		if errors.As(err, &sqliteErr) && sqliteErr.ExtendedCode == sqlite3.ErrConstraintUnique {
 			return 0, fmt.Errorf("%s: %w", caller, storage.ErrUserAlreadyExists)
 		}
 		return 0, fmt.Errorf("%s: %w", caller, err)
@@ -78,7 +78,7 @@ func (s *Storage) User(ctx context.Context, email string) (models.User, error) {
 	row := stmt.QueryRowContext(ctx, email)
 
 	var queryUser models.User
-	err = row.Scan(&queryUser.ID, &queryUser.Email, &queryUser.PassHash)
+	err = row.Scan(&queryUser.ID, &queryUser.Email, &queryUser.PassHash, &queryUser.IsAdmin)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return models.User{}, fmt.Errorf("%s: %w", caller, storage.ErrUserNotFound)

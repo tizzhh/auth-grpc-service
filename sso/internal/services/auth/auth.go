@@ -56,7 +56,7 @@ type Auth struct {
 // If user exists, but password is incorrect, returns an error.
 // If user doesn't exist, returns error.
 func (a *Auth) Login(ctx context.Context, email string, password string, appID int) (string, error) {
-	const caller = "auth.Login"
+	const caller = "services.auth.Login"
 
 	log := a.log.With(
 		slog.String("caller", caller),
