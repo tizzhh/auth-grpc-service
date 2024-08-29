@@ -35,8 +35,8 @@ func ValidateRegisterRequest(req *ssvo1.RegisterRequest) error {
 }
 
 func ValidateIsAdminRequest(req *ssvo1.IsAdminRequest) error {
-	if req.GetUserId() == emptyUserId {
-		return status.Error(codes.InvalidArgument, "user_id is required")
+	if req.GetEmail() == "" {
+		return status.Error(codes.InvalidArgument, "email is required")
 	}
 	return nil
 }

@@ -90,15 +90,15 @@ func (s *Storage) User(ctx context.Context, email string) (models.User, error) {
 }
 
 // IsAdmin checks if user is an admin.
-func (s *Storage) IsAdmin(ctx context.Context, userID int64) (bool, error) {
+func (s *Storage) IsAdmin(ctx context.Context, email string) (bool, error) {
 	const caller = "storage.sqlite.IsAdmin"
 
-	stmt, err := s.db.Prepare(`SELECT is_admin FROM users WHERE id = ?`)
+	stmt, err := s.db.Prepare(`SELECT is_admin FROM users WHERE email = ?`)
 	if err != nil {
 		return false, fmt.Errorf("%s: %w", caller, err)
 	}
 
-	row := stmt.QueryRowContext(ctx, userID)
+	row := stmt.QueryRowContext(ctx, email)
 
 	var isAdmin bool
 	err = row.Scan(&isAdmin)

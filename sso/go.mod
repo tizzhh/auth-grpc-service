@@ -9,7 +9,7 @@ require (
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/mattn/go-sqlite3 v1.14.22
 	github.com/stretchr/testify v1.9.0
-	github.com/tizzhh/auth-grpc-service/protos v0.0.0-20240828150833-4b2c5f481330
+	github.com/tizzhh/auth-grpc-service/protos v0.0.0-20240829091138-98944b3279f9
 	golang.org/x/crypto v0.26.0
 	google.golang.org/grpc v1.66.0
 )

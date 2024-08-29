@@ -24,7 +24,7 @@ func Register(gRPC *grpc.Server, auth Auth) {
 type Auth interface {
 	Login(ctx context.Context, email string, password string, appID int) (string, error)
 	RegisterNewUser(ctx context.Context, email string, password string) (int64, error)
-	IsAdmin(ctx context.Context, userID int64) (bool, error)
+	IsAdmin(ctx context.Context, email string) (bool, error)
 }
 
 func (s *serverAPI) Login(ctx context.Context, req *ssvo1.LoginRequest) (*ssvo1.LoginResponse, error) {
@@ -68,7 +68,7 @@ func (s *serverAPI) IsAdmin(ctx context.Context, req *ssvo1.IsAdminRequest) (*ss
 		return nil, err
 	}
 
-	isAdmin, err := s.auth.IsAdmin(ctx, req.GetUserId())
+	isAdmin, err := s.auth.IsAdmin(ctx, req.GetEmail())
 	if err != nil {
 		if errors.Is(err, auth.ErrInvalidCredentials) {
 			return nil, status.Error(codes.NotFound, "user not found")
