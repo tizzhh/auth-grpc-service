@@ -30,7 +30,7 @@ message LoginResponse {
 }
 
 message IsAdminRequest {
-    string email = 1;
+    string email = 2;
 }
 
 message IsAdminResponse {
