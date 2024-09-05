@@ -1,4 +1,4 @@
-# Url-shortener
+# Auth 
 
 Auth gRPC service
 
